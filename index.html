@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080f20">
+  <title>AA AI Robot</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main class="app">
+    <header>
+      <h1>🤖 AA AI</h1>
+      <p>Your Free Personal Robot</p>
+    </header>
+
+    <section class="robot">
+      <div class="robot-face">
+        <div class="eyes">
+          <span></span>
+          <span></span>
+        </div>
+        <div class="mouth"></div>
+      </div>
+      <h2>હેલો! હું AA છું.</h2>
+      <p>તમને શું મદદ કરું?</p>
+    </section>
+
+    <section class="chat">
+      <div id="messages" aria-live="polite">
+        <div class="message bot">
+          નમસ્તે! હું AA AI છું. મારી સાથે વાત કરો.
+        </div>
+      </div>
+
+      <div class="controls">
+        <select id="language" aria-label="ભાષા">
+          <option value="gu-IN">ગુજરાતી</option>
+          <option value="hi-IN">હિન્દી</option>
+          <option value="en-US">English</option>
+        </select>
+
+        <div class="input-row">
+          <input
+            id="userInput"
+            type="text"
+            placeholder="તમારો મેસેજ લખો..."
+          >
+          <button id="sendBtn">મોકલો</button>
+        </div>
+
+        <button id="micBtn" class="mic">
+          🎙️ અવાજથી વાત કરો
+        </button>
+      </div>
+    </section>
+
+    <footer>
+      <p>AA AI © 2026 | Free Project</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
