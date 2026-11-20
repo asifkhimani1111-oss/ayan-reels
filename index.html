@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#123b78">
+<title>A&A Education | ધોરણ 1 થી 12</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#f1f5fb;
+ color:#17243b;
+}
+header{
+ background:linear-gradient(120deg,#102c60,#2468ba);
+ color:white;
+ padding:25px 16px;
+ text-align:center;
+}
+header h1{margin:0;font-size:30px}
+header p{margin:9px 0 0}
+.container{max-width:850px;margin:auto;padding:16px}
+.card{
+ background:white;
+ padding:18px;
+ border-radius:15px;
+ margin-bottom:15px;
+ box-shadow:0 3px 12px #0000000c;
+}
+h2{font-size:19px;margin-top:0}
+label{display:block;font-weight:bold;margin:12px 0 7px}
+select,input{
+ width:100%;
+ padding:13px;
+ border:1px solid #cbd5e1;
+ border-radius:9px;
+ font-size:16px;
+ background:white;
+}
+button{
+ background:#174e9c;
+ color:white;
+ border:0;
+ border-radius:9px;
+ padding:13px;
+ font-size:16px;
+ width:100%;
+ margin-top:12px;
+}
+button:active{opacity:.8}
+.grades{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:9px;
+}
+.grade{
+ padding:15px 3px;
+ background:#edf4ff;
+ color:#174e9c;
+ border:1px solid #c9dcfa;
+ border-radius:10px;
+ text-align:center;
+ font-weight:bold;
+ cursor:pointer;
+}
+.grade.active{background:#174e9c;color:white}
+.result{
+ background:#f4f8ff;
+ padding:14px;
+ border-radius:10px;
+ margin-top:12px;
+}
+.muted{color:#64748b;font-size:14px}
+footer{
+ text-align:center;
+ padding:22px;
+ color:#64748b;
+ font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>📚 A&A Education</h1>
+<p>ધોરણ 1 થી 12 | તમારો અભ્યાસ સાથી</p>
+<p>ગુજરાત બોર્ડ અભ્યાસ સહાય</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+<h2>🎓 તમારું ધોરણ પસંદ કરો</h2>
+<div class="grades" id="grades"></div>
+</div>
+
+<div class="card">
+<h2>📖 વિષય પસંદ કરો</h2>
+
+<label>ધોરણ</label>
+<select id="classSelect">
+<option value="">ધોરણ પસંદ કરો</option>
+</select>
+
+<label>વિષય</label>
+<select id="subject">
+<option value="">પહેલાં ધોરણ પસંદ કરો</option>
+</select>
+
+<label>પ્રકરણ</label>
+<select id="chapter">
+<option value="">બધા પ્રકરણ</option>
+</select>
+</div>
+
+<div class="card">
+<h2>🔎 પ્રશ્નનો જવાબ શોધો</h2>
+<input id="question"
+placeholder="પાઠ્યપુસ્તકનો પ્રશ્ન અહીં લખો...">
+
+<button onclick="searchAnswer()">જવાબ શોધો</button>
+
+<div id="answer"></div>
+</div>
+
+<div class="card">
+<h2>📚 અભ્યાસ સામગ્રી</h2>
+<p>અહીં ઉપલબ્ધ સામગ્રીમાંથી જ જવાબ બતાવવામાં આવશે.</p>
+<ul>
+<li>પાઠ્યપુસ્તકના પ્રશ્નો</li>
+<li>સ્વાધ્યાયપોથી</li>
+<li>પ્રકરણ પ્રમાણે પ્રશ્નોત્તરી</li>
+<li>MCQ અને પરીક્ષાની તૈયારી</li>
+<li>ગાઇડમાં ઉપલબ્ધ અભ્યાસ સહાય</li>
+</ul>
+<p class="muted">
+નોંધ: દરેક પુસ્તકની સામગ્રી ચકાસીને ઉમેરવામાં આવશે.
+</p>
+</div>
+
+</div>
+
+<footer>
+<strong>A&A Education</strong><br>
+ધોરણ 1 થી 12 માટે શિક્ષણ સહાય<br>
+મફત શૈક્ષણિક વેબસાઇટ
+</footer>
+
+<script>
+
+// ધોરણ 1 થી 12
+const grades = Array.from({length:12},(_,i)=>i+1);
+
+// વિષયોની પ્રાથમિક યાદી
+const subjects = {
+ 1:["ગુજરાતી","ગણિત","પર્યાવરણ","અંગ્રેજી"],
+ 2:["ગુજરાતી","ગણિત","પર્યાવરણ","અંગ્રેજી"],
+ 3:["ગુજરાતી","ગણિત","પર્યાવરણ","અંગ્રેજી"],
+ 4:["ગુજરાતી","ગણિત","પર્યાવરણ","અંગ્રેજી"],
+ 5:["ગુજરાતી","ગણિત","પર્યાવરણ","અંગ્રેજી"],
+ 6:["ગુજરાતી","ગણિત","વિજ્ઞાન","સામાજિક વિજ્ઞાન","હિન્દી","અંગ્રેજી"],
+ 7:["ગુજરાતી","ગણિત","વિજ્ઞાન","સામાજિક વિજ્ઞાન","હિન્દી","અંગ્રેજી"],
+ 8:["ગુજરાતી","ગણિત","વિજ્ઞાન","સામાજિક વિજ્ઞાન","હિન્દી","અંગ્રેજી"],
+ 9:["ગુજરાતી","ગણિત","વિજ્ઞાન","સામાજિક વિજ્ઞાન","હિન્દી","અંગ્રેજી"],
+ 10:["ગુજરાતી","ગણિત","વિજ્ઞાન","સામાજિક વિજ્ઞાન","હિન્દી","અંગ્રેજી"],
+ 11:["ગુજરાતી","અંગ્રેજી","ગણિત","ભૌતિક વિજ્ઞાન","રસાયણ વિજ્ઞાન","જીવવિજ્ઞાન","અર્થશાસ્ત્ર","એકાઉન્ટન્સી"],
+ 12:["ગુજરાતી","અંગ્રેજી","ગણિત","ભૌતિક વિજ્ઞાન","રસાયણ વિજ્ઞાન","જીવવિજ્ઞાન","અર્થશાસ્ત્ર","એકાઉન્ટન્સી"]
+};
+
+// ચકાસેલા પ્રશ્નો અને જવાબો ઉમેરવા માટેનું સ્થાન.
+// ખાલી ડેટામાંથી કોઈ નવો જવાબ બનાવવામાં આવશે નહીં.
+const studyData = [];
+
+// ધોરણની યાદી બનાવો
+const gradesBox=document.getElementById("grades");
+const classSelect=document.getElementById("classSelect");
+
+grades.forEach(n=>{
+ let option=document.createElement("option");
+ option.value=n;
+ option.textContent="ધોરણ "+n;
+ classSelect.appendChild(option);
+
+ let btn=document.createElement("div");
+ btn.className="grade";
+ btn.textContent=n;
+ btn.onclick=()=>{
+  classSelect.value=n;
+  updateSubjects();
+  document.querySelectorAll(".grade").forEach(x=>x.classList.remove("active"));
+  btn.classList.add("active");
+ };
+ gradesBox.appendChild(btn);
+});
+
+// વિષય પસંદગી
+function updateSubjects(){
+ const n=classSelect.value;
+ const sub=document.getElementById("subject");
+ sub.innerHTML='<option value="">વિષય પસંદ કરો</option>';
+
+ (subjects[n]||[]).forEach(s=>{
+  let op=document.createElement("option");
+  op.value=s;
+  op.textContent=s;
+  sub.appendChild(op);
+ });
+
+ document.getElementById("chapter").innerHTML=
+ '<option value="">બધા પ્રકરણ</option>';
+}
+
+classSelect.addEventListener("change",updateSubjects);
+
+// પ્રશ્ન શોધો
+function searchAnswer(){
+ const cls=classSelect.value;
+ const subject=document.getElementById("subject").value;
+ const chapter=document.getElementById("chapter").value;
+ const q=document.getElementById("question").value.trim();
+ const box=document.getElementById("answer");
+
+ if(!cls||!subject||!q){
+  box.innerHTML='<div class="result">કૃપા કરીને ધોરણ, વિષય અને પ્રશ્ન પસંદ કરો.</div>';
+  return;
+ }
+
+ const normalize=s=>s.trim().replace(/\s+/g," ").toLowerCase();
+
+ const found=studyData.find(item=>
+  String(item.class)===cls &&
+  item.subject===subject &&
+  (!chapter||item.chapter===chapter) &&
+  normalize(item.question)===normalize(q)
+ );
+
+ if(found){
+  box.innerHTML="";
+  const title=document.createElement("h3");
+  title.textContent="જવાબ:";
+  const answer=document.createElement("p");
+  answer.textContent=found.answer;
+  box.append(title,answer);
+ }else{
+  box.innerHTML=
+  '<div class="result">આ પ્રશ્નનો ચકાસેલો જવાબ હાલમાં અમારી લાઇબ્રેરીમાં ઉપલબ્ધ નથી. નવો જવાબ બનાવવામાં આવશે નહીં.</div>';
+ }
+}
+
+</script>
+</body>
+</html>
